@@ -15,7 +15,7 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
     private int xScore = 0, oScore = 0;
 
     public AdvancedTicTacToe() {
-        setTitle("⚡ Modern Tic Tac Toe");
+        setTitle("Modern Tic Tac Toe");
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -43,10 +43,6 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
                 btn.setFocusPainted(false);
                 btn.setBackground(new Color(255, 255, 255));
                 btn.setForeground(new Color(44, 62, 80));
-                btn.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(200, 200, 200), 2),
-                        BorderFactory.createEmptyBorder(20, 20, 20, 20)
-                ));
                 btn.addActionListener(this);
 
                 final JButton ref = btn;
@@ -84,7 +80,7 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
         statusLabel.setForeground(new Color(26, 35, 126));
         statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton resetButton = new JButton("🔁 Reset");
+        JButton resetButton = new JButton("Reset");
         resetButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
         resetButton.setBackground(new Color(63, 81, 181));
         resetButton.setForeground(Color.WHITE);
@@ -132,7 +128,7 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
 
         if (checkWin(xTurn ? "X" : "O")) {
             if (xTurn) xScore++; else oScore++;
-            statusLabel.setText("🎉 Player " + (xTurn ? "X" : "O") + " wins!");
+            statusLabel.setText("Player " + (xTurn ? "X" : "O") + " wins!");
             updateScore();
             disableBoard();
             return;
