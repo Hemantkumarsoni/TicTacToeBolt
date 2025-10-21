@@ -13,8 +13,9 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
 
     private JLabel statusLabel, scoreLabel;
     private int xScore = 0, oScore = 0;
+    String xName, oName;
 
-    public AdvancedTicTacToe() {
+    public AdvancedTicTacToe(String xName, String oName, boolean starter, int xScore, int oScore) {
         setTitle("Modern Tic Tac Toe");
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,6 +24,12 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(250, 250, 250));
         setVisible(true);
+
+        this.xName = xName;
+        this.oName = oName;
+        this.xScore = xScore;
+        this.oScore = oScore;
+        xTurn = starter;
 
         JLabel title = new JLabel("Tic Tac Toe Bolt", SwingConstants.CENTER);
         title.setFont(new Font("Segoe UI Black", Font.BOLD, 28));
@@ -70,19 +77,19 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
         bottomPanel.setBackground(new Color(250, 250, 250));
 
-        scoreLabel = new JLabel("Score - X: 0 | O: 0", SwingConstants.CENTER);
+        scoreLabel = new JLabel("Score - "+xName+" : "+xScore+" | "+oName+" : "+oScore+" ", SwingConstants.CENTER);
         scoreLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         scoreLabel.setForeground(new Color(33, 33, 33));
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        statusLabel = new JLabel("Player X's Turn", SwingConstants.CENTER);
+        statusLabel = new JLabel("Player "+(xTurn ? xName : oName)+" 's Turn", SwingConstants.CENTER);
         statusLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         statusLabel.setForeground(new Color(26, 35, 126));
         statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton resetButton = new JButton("Reset");
         resetButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        resetButton.setBackground(new Color(63, 81, 181));
+        resetButton.setBackground(new Color(0,123,255));
         resetButton.setForeground(Color.WHITE);
         resetButton.setFocusPainted(false);
         resetButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -128,14 +135,14 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
 
         if (checkWin(xTurn ? "X" : "O")) {
             if (xTurn) xScore++; else oScore++;
-            statusLabel.setText("Player " + (xTurn ? "X" : "O") + " wins!");
+            statusLabel.setText("Player " + (xTurn ? xName : oName) + " wins!");
             updateScore();
             disableBoard();
             return;
         }
 
         xTurn = !xTurn;
-        statusLabel.setText("Player " + (xTurn ? "X" : "O") + "'s Turn");
+        statusLabel.setText("Player " + (xTurn ? xName : oName) + "'s Turn");
     }
 
     private Point getButtonPosition(JButton btn) {
@@ -175,7 +182,7 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
     }
 
     private void updateScore() {
-        scoreLabel.setText("Score - X: " + xScore + " | O: " + oScore);
+        scoreLabel.setText("Score - " +xName+" : "+ xScore + " | "+oName+ " : " + oScore);
     }
 
     private void resetGame() {
@@ -187,11 +194,12 @@ public class AdvancedTicTacToe extends JFrame implements ActionListener {
             }
         xMoves.clear();
         oMoves.clear();
-        xTurn = true;
-        statusLabel.setText("Player X's Turn");
+        new FirstStart(xName, oName, xScore, oScore);
+        dispose();
+        statusLabel.setText("Player "+(xTurn ? xName : oName)+" 's Turn");
     }
 
     public static void main(String[] args) {
-        new AdvancedTicTacToe();
+        new AdvancedTicTacToe("Alice", "Bob", true, 0, 0);
     }
 }
